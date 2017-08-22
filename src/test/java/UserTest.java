@@ -1,8 +1,12 @@
+
 import com.ssm.dmo.User;
 import com.ssm.service.UserService;
-import org.apache.log4j.Logger;
+import com.ssm.unit.redis.RedisPoolManager;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -13,7 +17,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath*:spring/spring-test.xml"})
 public class UserTest {
-    private Logger logger = Logger.getLogger(UserTest.class);
+    private Logger logger = LoggerFactory.getLogger(UserTest.class);
     @Autowired
     private UserService userService;
 
@@ -21,8 +25,16 @@ public class UserTest {
     @Test
     public void getUser(){
         User user=userService.getUserById(1);
-        logger.info(user.getId());
+        logger.info(user.getId()+"133333333344444444");
         System.out.println("id=="+user.getId());
+    }
+
+    @Test
+    public void TestRedis(){
+        RedisPoolManager redisPoolManager=new RedisPoolManager();
+        redisPoolManager.setCacheWithSec("name","aaa",1000);
+        System.out.println("=========redis========");
+        System.out.println(redisPoolManager.getCache("name"));
     }
 
 }
