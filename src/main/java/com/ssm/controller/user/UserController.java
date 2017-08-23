@@ -20,7 +20,8 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-
+    @Autowired
+    private RedisPoolManager redisPoolManager;
 
 
     @RequestMapping("/showUser")
@@ -32,7 +33,6 @@ public class UserController {
 
     @RequestMapping("/test")
     public String test(Model model){
-        RedisPoolManager redisPoolManager=new RedisPoolManager();
         redisPoolManager.setCacheWithSec("name", "aa", 1000);
         System.out.println("1222222");
         System.out.println(redisPoolManager.getCache("name"));

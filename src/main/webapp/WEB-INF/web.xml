@@ -5,14 +5,14 @@
          version="3.0">
     <display-name>Archetype Created Web Application</display-name>
 
-    <context-param>
-        <param-name>logbackConfigLocation</param-name>
-        <param-value>classpath:logback.xml</param-value>
-    </context-param>
-    <!-- Logback the root web application before spring servlet init -->
-    <listener>
-        <listener-class>ch.qos.logback.ext.spring.web.LogbackConfigListener</listener-class>
-    </listener>
+    <!--<context-param>-->
+        <!--<param-name>logbackConfigLocation</param-name>-->
+        <!--<param-value>classpath:logback.xml</param-value>-->
+    <!--</context-param>-->
+    <!--&lt;!&ndash; Logback the root web application before spring servlet init &ndash;&gt;-->
+    <!--<listener>-->
+        <!--<listener-class>ch.qos.logback.ext.spring.web.LogbackConfigListener</listener-class>-->
+    <!--</listener>-->
 
     <!-- Spring和mybatis的配置文件 -->
     <context-param>
