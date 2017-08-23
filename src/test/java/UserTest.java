@@ -21,6 +21,9 @@ public class UserTest {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private RedisPoolManager redisPoolManager;
+
 
     @Test
     public void getUser(){
@@ -31,7 +34,6 @@ public class UserTest {
 
     @Test
     public void TestRedis(){
-        RedisPoolManager redisPoolManager=new RedisPoolManager();
         redisPoolManager.setCacheWithSec("name","aaa",1000);
         System.out.println("=========redis========");
         System.out.println(redisPoolManager.getCache("name"));
