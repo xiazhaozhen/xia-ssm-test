@@ -9,7 +9,7 @@ debug:当此属性设置为true时，将打印出logback内部日志信息，实
     <!--设置上下文名称-->
     <contextName>learning</contextName>
 
-    <property name="USER_HOME" value="logs"/>
+    <property name="USER_HOME" value="/usr/local/apache-tomcat-8.5.16/logs"/>
 
     <!--获取时间戳字符串-->
     <timestamp key="byDay" datePattern="yyyy-MM-dd"/>
@@ -28,7 +28,7 @@ debug:当此属性设置为true时，将打印出logback内部日志信息，实
     RollingFileAppender：滚动记录文件，先将日志记录到指定文件，当符合某个条件时，将日志记录到其他文件-->
     <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!-- 当前Log文件名 -->
-        <file>/${USER_HOME}/learning-logback.log</file>
+        <file>/${USER_HOME}/ssmtest-logback.log</file>
 
         <!--<append>：如果是 true，日志被追加到文件结尾，如果是 false，清空现存文件，默认是true-->
         <append>true</append>
@@ -76,7 +76,7 @@ debug:当此属性设置为true时，将打印出logback内部日志信息，实
     level:用来设置打印级别，大小写无关： 从高到地低 OFF 、FATAL 、ERROR 、WARN 、INFO 、DEBUG 、TRACE 、ALL，还有一个特俗值INHERITED或者同义词NULL，
           代表强制执行上级的级别。如果未设置此属性，那么当前logger将会继承上级的级别
     additivity:是否向上级logger传递打印信息。默认是true-->
-    <logger name="com.jamedow.laodoufang" level="debug" additivity="true">
+    <logger name="com.ssm" level="debug" additivity="true">
         <appender-ref ref="file"/>
         <!-- <appender-ref ref="STDOUT" /> -->
     </logger>
