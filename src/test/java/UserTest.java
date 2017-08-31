@@ -24,10 +24,13 @@ public class UserTest {
     @Autowired
     private RedisPoolManager redisPoolManager;
 
+    @Autowired
+    private com.ssm.dmo.Test test;
 
     @Test
     public void getUser(){
         User user=userService.getUserById(1);
+        System.out.println(test.getUserName()+"===================");
         logger.info(user.getId()+"133333333344444444");
         System.out.println("id=="+user.getId());
     }

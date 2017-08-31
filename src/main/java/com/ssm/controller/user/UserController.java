@@ -1,5 +1,6 @@
 package com.ssm.controller.user;
 
+import com.ssm.dmo.Test;
 import com.ssm.dmo.User;
 import com.ssm.service.UserService;
 import com.ssm.unit.redis.RedisPoolManager;
@@ -22,11 +23,12 @@ public class UserController {
 
     @Autowired
     private RedisPoolManager redisPoolManager;
-
-
+    @Autowired
+    private Test test;
     @RequestMapping("/showUser")
     public String showUser(HttpServletRequest request, Model model){
         User user=userService.getUserById(1);
+        System.out.println("testuser=="+test.getUserName());
         model.addAttribute("user",user);
         return "user/showUser";
     }
