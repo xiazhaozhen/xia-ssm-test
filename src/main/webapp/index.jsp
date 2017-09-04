@@ -26,7 +26,7 @@
         }
         $.ajax({
             url:"${ctx}/user/showUser",
-            typr:"post",
+            type:"post",
             data:{
                 userName:$("#userName").val(),
                 passWord:$("#passWord").val()
