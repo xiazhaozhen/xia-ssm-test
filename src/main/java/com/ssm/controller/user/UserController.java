@@ -3,6 +3,7 @@ package com.ssm.controller.user;
 import com.ssm.dmo.Test;
 import com.ssm.dmo.User;
 import com.ssm.service.UserService;
+import com.ssm.unit.CookieUtils;
 import com.ssm.unit.StringUtils;
 import com.ssm.unit.redis.RedisPoolManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -28,15 +30,16 @@ public class UserController {
     private RedisPoolManager redisPoolManager;
     @Autowired
     private Test test;
-    @RequestMapping("/showUser")
+    @RequestMapping(value = "/showUser")
     @ResponseBody
-    public String showUser(HttpServletRequest request, HttpSession session, Model model, String userName, String passWord){
+    public String showUser(HttpServletResponse response,HttpServletRequest request, HttpSession session, Model model, String userName, String passWord){
         if(StringUtils.isBlank(userName)||StringUtils.isBlank(passWord)){
             return "登陆失败";
         }
         User user=userService.getUserById(1);
         System.out.println("testuser=="+test.getUserName());
         session.setAttribute("user",user);
+        CookieUtils.addCookie(response,"bbbb","testcookies",1000);
         return "0";
     }
 
@@ -49,7 +52,8 @@ public class UserController {
         return  "user/showUser";
     }
     @RequestMapping("toUser")
-    public String toUser(){
+    public String toUser(HttpServletRequest request){
+        System.out.println("testcookies=============="+CookieUtils.getUid(request,"bbbb"));
         return "user/showUser";
     }
 }
