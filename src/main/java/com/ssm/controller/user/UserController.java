@@ -3,13 +3,18 @@ package com.ssm.controller.user;
 import com.ssm.dmo.Test;
 import com.ssm.dmo.User;
 import com.ssm.service.UserService;
+import com.ssm.unit.CookieUtils;
+import com.ssm.unit.StringUtils;
 import com.ssm.unit.redis.RedisPoolManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Created by sgl on 17/8/17.
@@ -25,12 +30,17 @@ public class UserController {
     private RedisPoolManager redisPoolManager;
     @Autowired
     private Test test;
-    @RequestMapping("/showUser")
-    public String showUser(HttpServletRequest request, Model model){
+    @RequestMapping(value = "/showUser")
+    @ResponseBody
+    public String showUser(HttpServletResponse response,HttpServletRequest request, HttpSession session, Model model, String userName, String passWord){
+        if(StringUtils.isBlank(userName)||StringUtils.isBlank(passWord)){
+            return "登陆失败";
+        }
         User user=userService.getUserById(1);
         System.out.println("testuser=="+test.getUserName());
-        model.addAttribute("user",user);
-        return "user/showUser";
+        session.setAttribute("user",user);
+        CookieUtils.addCookie(response,"bbbb","testcookies",1000);
+        return "0";
     }
 
     @RequestMapping("/test")
@@ -40,7 +50,10 @@ public class UserController {
         System.out.println(redisPoolManager.getCache("name"));
         model.addAttribute("name",redisPoolManager.getCache("name"));
         return  "user/showUser";
-
     }
-
+    @RequestMapping("toUser")
+    public String toUser(HttpServletRequest request){
+        System.out.println("testcookies=============="+CookieUtils.getUid(request,"bbbb"));
+        return "user/showUser";
+    }
 }
