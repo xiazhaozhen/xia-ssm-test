@@ -1,4 +1,4 @@
-package com.ssm.producer;
+package com.ssm.unit.rabbitMq;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

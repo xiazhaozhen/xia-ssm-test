@@ -1,4 +1,4 @@
-package com.ssm.consumer;
+package com.ssm.unit.rabbitMq;
 
 
 import org.slf4j.Logger;

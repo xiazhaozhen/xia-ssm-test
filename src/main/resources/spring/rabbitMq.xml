@@ -18,10 +18,18 @@
     <!--通过指定下面的admin信息，当前producer中的exchange和queue会在rabbitmq服务器上自动生成 -->
     <rabbit:admin connection-factory="connectionFactory" />
 
-    <!--定义queue -->
+    <!--定义queue
+    durable:是否持久化
+
+    exclusive: 仅创建者可以使用的私有队列，断开后自动删除
+
+    auto_delete: 当所有消费客户端连接断开后，是否自动删除队列
+    -->
     <rabbit:queue name="queueTest" durable="true" auto-delete="false" exclusive="false" />
 
     <!-- 定义direct exchange，绑定queueTest -->
+    <!-- rabbit:direct-exchange：定义exchange模式为direct，意思就是消息与一个特定的路由键完全匹配，才会转发。
+        rabbit:binding：设置消息queue匹配的key-->
     <rabbit:direct-exchange name="exchangeTest" durable="true" auto-delete="false">
         <rabbit:bindings>
             <rabbit:binding queue="queueTest" key="queueTestKey"></rabbit:binding>
@@ -29,11 +37,10 @@
     </rabbit:direct-exchange>
 
     <!-- 消息接收者 -->
-    <bean id="messageReceiver" class="com.ssm.consumer.MessageConsumer"></bean>
+    <bean id="messageReceiver" class="com.ssm.unit.rabbitMq.MessageConsumer"></bean>
 
     <!-- queue litener  观察 监听模式 当有消息到达时会通知监听在对应的队列上的监听对象-->
-    <!--<rabbit:listener-container connection-factory="connectionFactory">-->
-        <!--<rabbit:listener queues="queueTest" ref="messageReceiver"/>-->
-    <!--</rabbit:listener-container>-->
-
+    <rabbit:listener-container connection-factory="connectionFactory">
+        <rabbit:listener queues="queueTest" ref="messageReceiver"/>
+    </rabbit:listener-container>
 </beans>
